@@ -58,16 +58,20 @@ def get_latest_timestamp_folder(ip_path):
 def get_channel_image_path(latest_folder, root_directory):
     """
     获取时间戳文件夹中的channel_1.jpg或channel_2.jpg文件路径
-    并返回相对于root_directory的路径
+    并返回相对于root_directory的路径列表
     """
     if latest_folder is None:
-        return None
+        return []
+
+    image_paths = []
+
     for channel in ['channel_1.jpg', 'channel_2.jpg']:
         channel_path = os.path.join(latest_folder, channel)
         if os.path.exists(channel_path):
-            # 返回相对于root_directory的路径
-            return os.path.relpath(channel_path, root_directory)
-    return None
+            # 将相对于root_directory的路径添加到列表中
+            image_paths.append(os.path.relpath(channel_path, root_directory))
+
+    return image_paths
 
 
 #  generate_json 中的调用
